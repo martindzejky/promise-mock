@@ -21,6 +21,17 @@
     "url": "https://github.com/martindzejky/promise-mock/issues"
   },
   "homepage": "https://github.com/martindzejky/promise-mock#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{json,js,ts,md,yml}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "husky": "^4.2.3",
     "lint-staged": "^10.0.7",
