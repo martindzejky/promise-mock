@@ -1,0 +1,25 @@
+{
+  "name": "promise-mock",
+  "version": "1.0.0",
+  "description": "Synchronous promise mock for tests",
+  "main": "src/index.ts",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martindzejky/promise-mock.git"
+  },
+  "keywords": [
+    "promise-mock",
+    "promise",
+    "mock",
+    "sync",
+    "synchronous"
+  ],
+  "author": "Martin Jakubik <martin@jakubik.info>",
+  "license": "See license in LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/martindzejky/promise-mock/issues"
+  },
+  "homepage": "https://github.com/martindzejky/promise-mock#readme"
+}
