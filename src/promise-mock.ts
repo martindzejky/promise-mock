@@ -117,7 +117,7 @@ export class PromiseMock<TValue> implements Promise<TValue> {
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag
      */
     get [Symbol.toStringTag](): string {
-        return 'PromiseMock';
+        return `PromiseMock in ${this.state} state with ${this.callbacks.length} registered callbacks`;
     }
 
     getState(): PromiseState {

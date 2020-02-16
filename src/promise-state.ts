@@ -1,5 +1,5 @@
 export enum PromiseState {
-    Pending,
-    Resolved,
-    Rejected,
+    Pending = 'pending',
+    Resolved = 'resolved',
+    Rejected = 'rejected',
 }
