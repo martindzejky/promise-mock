@@ -16,7 +16,7 @@
     "synchronous"
   ],
   "author": "Martin Jakubik <martin@jakubik.info>",
-  "license": "See license in LICENSE.md",
+  "license": "SEE LICENSE IN LICENSE.md",
   "bugs": {
     "url": "https://github.com/martindzejky/promise-mock/issues"
   },
@@ -28,8 +28,7 @@
   },
   "lint-staged": {
     "*.{json,js,ts,md,yml}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "devDependencies": {
