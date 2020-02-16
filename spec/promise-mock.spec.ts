@@ -256,4 +256,104 @@ describe('PromiseMock', () => {
             expect(callback2).toHaveBeenCalledWith(jasmine.any(Error));
         });
     });
+
+    describe('Multiple callbacks', () => {
+        let promise: PromiseMock<string>;
+
+        beforeEach(() => {
+            promise = new PromiseMock<string>();
+        });
+
+        it('should be called when the promise is resolved', () => {
+            const callbacks: jasmine.Spy[] = Array(16).map((_, i) =>
+                jasmine.createSpy(`callback${i}`),
+            );
+
+            const methods = ['then', 'catch', 'finally'] as const;
+            callbacks.forEach((callback, i) => {
+                promise[methods[i % 3]].call(promise, callback);
+            });
+            promise.resolve('value');
+
+            callbacks.forEach((callback, i) => {
+                if (i % 3 === 0) {
+                    expect(callback).toHaveBeenCalledWith('value');
+                } else if (i % 3 === 1) {
+                    expect(callback).not.toHaveBeenCalled();
+                } else {
+                    expect(callback).toHaveBeenCalledWith();
+                }
+            });
+        });
+
+        it('should be called when the promise is rejected', () => {
+            const callbacks: jasmine.Spy[] = Array(16).map((_, i) =>
+                jasmine.createSpy(`callback${i}`),
+            );
+
+            const methods = ['then', 'catch', 'finally'] as const;
+            callbacks.forEach((callback, i) => {
+                promise[methods[i % 3]].call(promise, callback);
+            });
+            promise.reject(new Error());
+
+            callbacks.forEach((callback, i) => {
+                if (i % 3 === 0) {
+                    expect(callback).not.toHaveBeenCalled();
+                } else if (i % 3 === 1) {
+                    expect(callback).toHaveBeenCalledWith(jasmine.any(Error));
+                } else {
+                    expect(callback).toHaveBeenCalledWith();
+                }
+            });
+        });
+    });
+
+    describe('Chaining scenarios', () => {
+        let thenSpy: jasmine.Spy;
+        let catchSpy: jasmine.Spy;
+
+        beforeEach(() => {
+            thenSpy = jasmine.createSpy('thenCallback');
+            catchSpy = jasmine.createSpy('catchCallback');
+        });
+
+        it('scenario #1', () => {
+            PromiseMock.resolve(false)
+                .then(() => {})
+                .then(() => 5)
+                .catch(() => false)
+                .catch(() => {
+                    throw new Error();
+                })
+                .then(() => {
+                    throw new TypeError();
+                })
+                .then(() => 'yes!')
+                .then(thenSpy)
+                .catch(catchSpy);
+
+            expect(thenSpy).not.toHaveBeenCalled();
+            expect(catchSpy).toHaveBeenCalledWith(jasmine.any(TypeError));
+        });
+
+        it('scenario #2', () => {
+            PromiseMock.reject()
+                .then(() => 1)
+                .then(() => false)
+                .catch(() => true)
+                .then(() => 'here')
+                .catch(() => 2)
+                .then(() => {
+                    throw new Error();
+                })
+                .then(() => false)
+                .catch(() => 2)
+                .then(thenSpy)
+                .catch(catchSpy);
+
+            expect(thenSpy).toHaveBeenCalledWith(2);
+            expect(catchSpy).not.toHaveBeenCalled();
+        });
+    });
 });
