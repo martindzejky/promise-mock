@@ -201,4 +201,59 @@ describe('PromiseMock', () => {
             expect(catchSpy).toHaveBeenCalledWith(jasmine.any(Error));
         });
     });
+
+    describe('#finally', () => {
+        let callback: jasmine.Spy;
+        let promise: PromiseMock<number>;
+        let finallyPromise: PromiseMock<number>;
+
+        beforeEach(() => {
+            callback = jasmine.createSpy('finallyCallback');
+            promise = new PromiseMock<number>();
+            finallyPromise = promise.finally(callback);
+        });
+
+        it('should call the registered callback when the promise is resolved', () => {
+            promise.resolve(11);
+
+            expect(callback).toHaveBeenCalledWith();
+        });
+
+        it('should call the registered callback when the promise is rejected', () => {
+            promise.reject(new Error());
+
+            expect(callback).toHaveBeenCalledWith();
+        });
+
+        it('should return chainable promise', () => {
+            expect(finallyPromise).toBeDefined();
+            expect(finallyPromise).toEqual(
+                jasmine.objectContaining({
+                    then: jasmine.any(Function),
+                    catch: jasmine.any(Function),
+                    finally: jasmine.any(Function),
+                }),
+            );
+        });
+
+        it('should resolve chainable promise with the original value', () => {
+            const callback2 = jasmine.createSpy('callback2');
+            finallyPromise.then(callback2);
+
+            callback.and.returnValue(5);
+            promise.resolve(11);
+
+            expect(callback2).toHaveBeenCalledWith(11);
+        });
+
+        it('should reject chainable promise when the callback throws an error', () => {
+            const callback2 = jasmine.createSpy('callback2');
+            finallyPromise.catch(callback2);
+
+            callback.and.throwError('callback error');
+            promise.resolve(11);
+
+            expect(callback2).toHaveBeenCalledWith(jasmine.any(Error));
+        });
+    });
 });

@@ -135,7 +135,14 @@ export class PromiseMock<TValue> implements Promise<TValue> {
     private resolveAllCallbacks(): void {
         this.callbacks.forEach(callback => {
             if ('finally' in callback && callback.finally) {
-                this.callFinallyCallback(callback);
+                try {
+                    callback.finally();
+                } catch (e) {
+                    this.throwIfAssertionExceptionType(e);
+                    callback.nextPromise.reject(e);
+                    return;
+                }
+
                 callback.nextPromise.resolve(this.resolvedValue);
                 return;
             }
@@ -170,7 +177,14 @@ export class PromiseMock<TValue> implements Promise<TValue> {
     private rejectAllCallbacks(): void {
         this.callbacks.forEach(callback => {
             if ('finally' in callback && callback.finally) {
-                this.callFinallyCallback(callback);
+                try {
+                    callback.finally();
+                } catch (e) {
+                    this.throwIfAssertionExceptionType(e);
+                    callback.nextPromise.reject(e);
+                    return;
+                }
+
                 callback.nextPromise.reject(this.rejectedReason);
                 return;
             }
@@ -200,20 +214,6 @@ export class PromiseMock<TValue> implements Promise<TValue> {
         });
 
         this.callbacks = [];
-    }
-
-    private callFinallyCallback(callback: RegisteredFinallyCallback): void {
-        if (!callback.finally) {
-            return;
-        }
-
-        try {
-            callback.finally();
-        } catch (e) {
-            this.throwIfAssertionExceptionType(e);
-            callback.nextPromise.reject(e);
-            return;
-        }
     }
 
     private throwIfAssertionExceptionType(error: any): void | never {
