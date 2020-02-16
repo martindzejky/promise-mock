@@ -24,4 +24,12 @@ describe('isPromiseLike', () => {
 
         expect(isPromiseLike(obj)).toBe(false);
     });
+
+    it('should return false for null', () => {
+        expect(isPromiseLike(null)).toBe(false);
+    });
+
+    it('should return false for undefined', () => {
+        expect(isPromiseLike(undefined)).toBe(false);
+    });
 });

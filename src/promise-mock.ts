@@ -23,7 +23,7 @@ export class PromiseMock<TValue> implements Promise<TValue> {
         this.assertionExceptionTypes = [...types];
     }
 
-    static resolve<TValue>(value: TValue): PromiseMock<TValue> {
+    static resolve<TValue>(value?: TValue): PromiseMock<TValue> {
         const promise = new PromiseMock<TValue>();
         promise.resolve(value);
 
@@ -37,7 +37,7 @@ export class PromiseMock<TValue> implements Promise<TValue> {
         return promise;
     }
 
-    resolve(value: TValue): void {
+    resolve(value?: TValue): void {
         if (this.state !== PromiseState.Pending) {
             throw new Error('Cannot resolve a promise that is not pending');
         }

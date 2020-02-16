@@ -1,7 +1,5 @@
 {
     "extends": "./tsconfig",
-    "include": ["spec/**"],
-    "exclude": [],
     "compilerOptions": {
         "module": "CommonJS"
     }
