@@ -32,4 +32,8 @@ describe('isPromiseLike', () => {
     it('should return false for undefined', () => {
         expect(isPromiseLike(undefined)).toBe(false);
     });
+
+    it('should return false for a number', () => {
+        expect(isPromiseLike(5)).toBe(false);
+    });
 });

@@ -64,7 +64,7 @@ export class PromiseMock<TValue> implements Promise<TValue> {
             ResolvedCallback<TValue, TResolvedCallbackValue>
         >,
         rejectedCallback?: Nullable<RejectedCallback<TRejectedCallbackValue>>,
-    ): Promise<TResolvedCallbackValue | TRejectedCallbackValue> {
+    ): PromiseMock<TResolvedCallbackValue | TRejectedCallbackValue> {
         const callback: RegisteredCallback<
             TValue,
             TResolvedCallbackValue,
@@ -85,7 +85,7 @@ export class PromiseMock<TValue> implements Promise<TValue> {
 
     catch<TRejectedCallbackValue = never>(
         rejectedCallback?: Nullable<RejectedCallback<TRejectedCallbackValue>>,
-    ): Promise<TValue | TRejectedCallbackValue> {
+    ): PromiseMock<TValue | TRejectedCallbackValue> {
         const callback: RegisteredCallback<
             TValue,
             never,
@@ -101,7 +101,7 @@ export class PromiseMock<TValue> implements Promise<TValue> {
         return callback.nextPromise;
     }
 
-    finally(finallyCallback?: Nullable<FinallyCallback>): Promise<TValue> {
+    finally(finallyCallback?: Nullable<FinallyCallback>): PromiseMock<TValue> {
         const callback: RegisteredFinallyCallback<TValue> = {
             finally: finallyCallback,
             nextPromise: new PromiseMock<TValue>(),

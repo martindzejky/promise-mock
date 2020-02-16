@@ -97,4 +97,108 @@ describe('PromiseMock', () => {
             expect(spy).toHaveBeenCalledWith();
         });
     });
+
+    describe('#then', () => {
+        let callback: jasmine.Spy;
+        let promise: PromiseMock<number>;
+        let thenPromise: PromiseMock<number>;
+
+        beforeEach(() => {
+            callback = jasmine.createSpy('thenCallback');
+            promise = new PromiseMock<number>();
+            thenPromise = promise.then(callback);
+        });
+
+        it('should call the registered callback when the promise is resolved', () => {
+            promise.resolve(2);
+            expect(callback).toHaveBeenCalledWith(2);
+        });
+
+        it('should return a chainable promise', () => {
+            expect(thenPromise).toBeDefined();
+            expect(thenPromise).toEqual(
+                jasmine.objectContaining({
+                    then: jasmine.any(Function),
+                    catch: jasmine.any(Function),
+                    finally: jasmine.any(Function),
+                }),
+            );
+        });
+
+        it('should resolve the chained promise with the value from callback', () => {
+            const thenSpy = jasmine.createSpy('thenCallback2');
+            const catchSpy = jasmine.createSpy('catchCallback2');
+            thenPromise.then(thenSpy);
+            thenPromise.catch(catchSpy);
+            callback.and.returnValue(5);
+            promise.resolve(2);
+
+            expect(thenSpy).toHaveBeenCalledWith(5);
+            expect(catchSpy).not.toHaveBeenCalled();
+        });
+
+        it('should reject the chained promise with the error from callback', () => {
+            const thenSpy = jasmine.createSpy('thenCallback2');
+            const catchSpy = jasmine.createSpy('catchCallback2');
+            thenPromise.then(thenSpy);
+            thenPromise.catch(catchSpy);
+            callback.and.throwError('callback error');
+            promise.resolve(2);
+
+            expect(thenSpy).not.toHaveBeenCalled();
+            expect(catchSpy).toHaveBeenCalledWith(jasmine.any(Error));
+        });
+    });
+
+    describe('#catch', () => {
+        let callback: jasmine.Spy;
+        let promise: PromiseMock<number>;
+        let catchPromise: PromiseMock<number>;
+
+        beforeEach(() => {
+            callback = jasmine.createSpy('catchCallback');
+            promise = new PromiseMock<number>();
+            catchPromise = promise.catch(callback);
+        });
+
+        it('should call the registered callback when the promise is rejected', () => {
+            promise.reject(2);
+            expect(callback).toHaveBeenCalledWith(2);
+        });
+
+        it('should return a chainable promise', () => {
+            expect(catchPromise).toBeDefined();
+            expect(catchPromise).toEqual(
+                jasmine.objectContaining({
+                    then: jasmine.any(Function),
+                    catch: jasmine.any(Function),
+                    finally: jasmine.any(Function),
+                }),
+            );
+        });
+
+        it('should resolve the chained promise with the value from callback', () => {
+            const thenSpy = jasmine.createSpy('thenCallback2');
+            const catchSpy = jasmine.createSpy('catchCallback2');
+            catchPromise.then(thenSpy);
+            catchPromise.catch(catchSpy);
+            callback.and.returnValue(5);
+            promise.reject(new Error());
+
+            expect(thenSpy).toHaveBeenCalledWith(5);
+            expect(catchSpy).not.toHaveBeenCalled();
+        });
+
+        it('should reject the chained promise with the error from callback', () => {
+            const thenSpy = jasmine.createSpy('thenCallback2');
+            const catchSpy = jasmine.createSpy('catchCallback2');
+            catchPromise.then(thenSpy);
+            catchPromise.catch(catchSpy);
+            callback.and.throwError('callback error');
+            promise.reject(new Error());
+
+            expect(thenSpy).not.toHaveBeenCalled();
+            expect(catchSpy).toHaveBeenCalledWith(jasmine.any(Error));
+        });
+    });
 });
