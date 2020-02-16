@@ -1,7 +1,8 @@
 {
+    "exclude": ["spec/**"],
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
+        "target": "ESNext",
+        "module": "ESNext",
 
         "strict": true,
         "noUnusedLocals": true,

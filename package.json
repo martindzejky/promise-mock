@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Synchronous promise mock for tests",
   "main": "src/index.ts",
-  "scripts": {},
+  "scripts": {
+    "test": "ts-node --project tsconfig.spec.json node_modules/.bin/jasmine"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/martindzejky/promise-mock.git"
@@ -32,9 +34,12 @@
     ]
   },
   "devDependencies": {
+    "@types/jasmine": "^3.5.4",
     "husky": "^4.2.3",
+    "jasmine": "^3.5.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   }
 }
