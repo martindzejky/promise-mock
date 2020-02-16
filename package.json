@@ -4,7 +4,8 @@
   "description": "Synchronous promise mock for tests",
   "main": "src/index.ts",
   "scripts": {
-    "test": "ts-node --project tsconfig.spec.json node_modules/.bin/jasmine"
+    "check": "tsc --project tsconfig.json",
+    "test": "ts-node --project spec/tsconfig.json node_modules/.bin/jasmine"
   },
   "repository": {
     "type": "git",

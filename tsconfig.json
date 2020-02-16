@@ -1,7 +1,10 @@
 {
+    "include": ["src"],
+    "exclude": ["spec"],
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
+        "noEmit": true,
 
         "strict": true,
         "noUnusedLocals": true,
