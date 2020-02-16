@@ -1,7 +1,7 @@
 {
     "extends": "../tsconfig",
     "include": ["."],
-    "exclude": [],
+    "exclude": ["../node_modules"],
     "compilerOptions": {
         "module": "CommonJS",
         "noEmit": false
