@@ -1,8 +1,8 @@
 # promise-mock
 
-![GitHub tag](https://img.shields.io/github/v/tag/martindzejky/promise-mock?style=flat-square)
-![npm](https://img.shields.io/npm/v/@martindzejky/promise-mock?style=flat-square)
-![Tests](https://img.shields.io/github/workflow/status/martindzejky/promise-mock/Run%20tests?label=tests&style=flat-square)
+[![GitHub tag](https://img.shields.io/github/v/tag/martindzejky/promise-mock?style=flat-square)](https://github.com/martindzejky/promise-mock/releases)
+[![npm](https://img.shields.io/npm/v/@martindzejky/promise-mock?style=flat-square)](https://www.npmjs.com/package/@martindzejky/promise-mock)
+[![Tests](https://img.shields.io/github/workflow/status/martindzejky/promise-mock/Run%20tests?label=tests&style=flat-square)](https://github.com/martindzejky/promise-mock/actions)
 
 Synchronous promise mock for tests. Implemented using Typescript so types are provided with the
 library. Also, the mock class implements `Promise` interface so you can use it wherever a real
