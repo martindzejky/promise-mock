@@ -1,6 +1,6 @@
 {
   "name": "@martindzejky/promise-mock",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Synchronous promise mock for tests",
   "main": "src/index.ts",
   "module": "src/index.ts",
