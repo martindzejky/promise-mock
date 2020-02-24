@@ -4,13 +4,15 @@
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
-        "noEmit": true,
+        "noEmit": false,
+        "outDir": "dist",
 
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true
     }
 }

@@ -2,13 +2,13 @@
   "name": "@martindzejky/promise-mock",
   "version": "1.0.2",
   "description": "Synchronous promise mock for tests",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "files": [
     "src/**/*.ts"
   ],
   "scripts": {
-    "check": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.json",
     "test": "ts-node --project spec/tsconfig.json node_modules/.bin/jasmine"
   },
   "repository": {

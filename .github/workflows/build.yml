@@ -1,4 +1,4 @@
-name: Check Typescript compilation errors
+name: Build the library
 
 on: [push]
 
@@ -17,6 +17,6 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - run: npm ci
-            - run: npm run check
+            - run: npm run build
               env:
                   CI: true
