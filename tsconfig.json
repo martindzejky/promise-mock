@@ -4,8 +4,10 @@
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
-        "noEmit": false,
+
         "outDir": "dist",
+        "declaration": true,
+        "sourceMap": false,
 
         "strict": true,
         "noUnusedLocals": true,

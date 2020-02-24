@@ -3,9 +3,10 @@
   "version": "1.0.2",
   "description": "Synchronous promise mock for tests",
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "src/**/*.ts"
+    "dist/*.js",
+    "dist/*.d.ts"
   ],
   "scripts": {
     "build": "tsc --project tsconfig.json",
