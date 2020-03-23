@@ -2,8 +2,9 @@
     "include": ["src"],
     "exclude": ["spec", "node_modules"],
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
+        "target": "ES5",
+        "module": "CommonJS",
+        "lib": ["ES2015"],
 
         "outDir": "dist",
         "declaration": true,
